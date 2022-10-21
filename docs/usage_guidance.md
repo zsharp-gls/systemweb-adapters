@@ -4,7 +4,7 @@
 
 ## `HttpContext` lifetime
 
-The adapters are backed by `Microsoft.AspNetCore.Http.HttpContext` which cannot be used past the lifetime of a request. Thus, `System.Web.HttpContext` when run on ASP.NET Core cannot be used past a request as well, while on ASP.NET Framework it would work at times. An `ObjectDisposedException` will be thrown in cases where it is used past a request end.
+The adapters are backed by `Microsoft.AspNetCore.Http.HttpContext`, which cannot be used past the lifetime of a request. Thus, `System.Web.HttpContext`, when run on ASP.NET Core, also cannot be used past the lifetime of a request, while on ASP.NET Framework it would work at times. An `ObjectDisposedException` will be thrown in cases where it is used past a request end.
 
 **Recommendation**: Store the values needed into a POCO and hold onto that.
 
@@ -15,7 +15,7 @@ There are two ways to convert an `Microsoft.AspNetCore.Http.HttpContext` to a `S
 - Implicit casting
 - Constructor usage
 
-**Recommendation**: For the most cases, implicit casting should be preferred as this will cache the created instance and ensure only a single `System.Web.HttpContext` per request.
+**Recommendation**: For the most cases, implicit casting should be preferred, as this will cache the created instance and ensure only a single `System.Web.HttpContext` per request.
 
 ## `CultureInfo.CurrentCulture` is not set by default
 
@@ -37,7 +37,7 @@ In ASP.NET Framework, `System.Threading.Thread.CurrentPrincipal` and `System.Sec
 
 ## Request thread does not exist in ASP.NET Core
 
-In ASP.NET Framework, a request had thread-affinity and `HttpContext.Current` would only be available if on that thread. ASP.NET Core does not have this guarantee so `HttpContext.Current` will be available within the same async context, but no guarantees about threads are made.
+In ASP.NET Framework, a request had thread-affinity and `HttpContext.Current` would only be available if on that thread. ASP.NET Core does not have this guarantee, so `HttpContext.Current` will be available within the same async context, but no guarantees about threads are made.
 
 **Recommendation**: If reading/writing to the `HttpContext`, you must ensure you are doing so in a single-threaded way. You can force a request to never run concurrently on any async context by setting the `ISingleThreadedRequestMetadata`. This will have performance implications and should only be used if you can't refactor usage to ensure non-concurrent access. There is an implementation available to add to controllers with `SingleThreadedRequestAttribute`:
 
