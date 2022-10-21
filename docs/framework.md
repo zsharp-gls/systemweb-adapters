@@ -34,7 +34,7 @@ protected void Application_Start()
 }
 ```
 
-Customizing the adapters is done by adding modules to via `Application.AddSystemWebAdapters()` which will be loaded within the `SystemWebAdaptersModule` registered in `web.config`. The available configuration right now are described below.
+Customizing the adapters is done by adding modules to the app via `Application.AddSystemWebAdapters()`, which will be loaded within the `SystemWebAdaptersModule` registered in `web.config`. The available configurations right now are described below.
 
 ## Additional Modules
 
@@ -46,4 +46,4 @@ This is done by calling this `ISystemWebAdapterBuilder.AddProxySupport` method a
 
 ### Remote App Session Support
 
-In order to support session, an option is to retrieve it from the framework application. For details on how this works and how to configure it, please see [here](session-state/remote-session.md).
+In order to support session in the ASP.NET Core app, an option is to retrieve it from the framework application. For details on how this works and how to configure it, please see [here](session-state/remote-session.md).
