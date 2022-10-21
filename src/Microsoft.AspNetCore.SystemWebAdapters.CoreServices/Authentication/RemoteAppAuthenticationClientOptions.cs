@@ -25,15 +25,17 @@ public class RemoteAppAuthenticationClientOptions : AuthenticationSchemeOptions
     });
 
     /// <summary>
-    /// Gets or sets a list of request headers that should be forwarded to the remote app for authentication purposes. If no headers
+    /// A list of request headers that should be forwarded to the remote app for authentication purposes. If no headers
     /// are specified, all headers will be forwarded.
     /// </summary>
+    /// <remarks>Modify with .Add(), .Clear(), etc.</remarks>
     public ICollection<string> RequestHeadersToForward { get; } = new HashSet<string>(DefaultRequestHeadersToForward);
 
     /// <summary>
-    /// Gets or sets a list of response headers that may need propagated back from authenticate responses. If no headers
+    /// A list of response headers that may be propagated back from authenticate responses. If no headers
     /// are specified, all headers will be forwarded.
     /// </summary>
+    /// <remarks>Modify with .Add(), .Clear(), etc.</remarks>
     public ICollection<string> ResponseHeadersToForward { get; } = new HashSet<string>(DefaultResponseHeadersToForward);
 
     /// <summary>
