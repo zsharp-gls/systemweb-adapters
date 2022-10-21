@@ -10,7 +10,7 @@ To enable the ASP.NET Core app to communicate with the ASP.NET app, it's necessa
 
 ### ASP.NET app configuration
 
-To setup the ASP.NET app to be able to receive requests from the ASP.NET Core app, call the `AddRemoteApp` extension method on the `ISystemWebAdapterBuilder` as shown here.
+To setup the ASP.NET app to be able to receive requests from the ASP.NET Core app, call the `AddRemoteAppServer` extension method on the `ISystemWebAdapterBuilder` as shown here.
 
 ```CSharp
 SystemWebAdapterConfiguration.AddSystemWebAdapters(this)
@@ -21,11 +21,11 @@ SystemWebAdapterConfiguration.AddSystemWebAdapters(this)
     });
 ```
 
-In the options configuration method passed to the `AddRemoteApp` call, you must specify an API key which is used to secure the endpoint so that only trusted callers can make requests to it (this same API key will be provided to the ASP.NET Core app when it is configured). The API key is a string and must be parsable as a GUID (128-bit hex number). Hyphens in the key are optional.
+In the options configuration method passed to the `AddRemoteAppServer` call, you must specify an API key, which will be used to secure the endpoint so that only trusted callers can make requests to it (this same API key will be provided to the ASP.NET Core app when it is configured). The API key is a string and must be parsable as a GUID (128-bit hex number). Hyphens in the key are optional.
 
 ### ASP.NET Core app
 
-To setup the ASP.NET Core app to be able to send requests to the ASP.NET app, you need to make a similar change, calling `AddRemoteApp` after registering System.Web adapter services with `AddSystemWebAdapters`.
+To setup the ASP.NET Core app to be able to send requests to the ASP.NET app, you need to make a similar change, calling `AddRemoteAppClient` after registering System.Web adapter services with `AddSystemWebAdapters`.
 
 ```CSharp
 builder.Services.AddSystemWebAdapters()
@@ -36,7 +36,7 @@ builder.Services.AddSystemWebAdapters()
     });
 ```
 
-The `AddRemoteApp` call is used to configure the remote app's URL and the shared secret API key.
+The `AddRemoteAppClient` call is used to configure the remote app's URL and the shared secret API key.
 
 With both the ASP.NET and ASP.NET Core app updated, extension methods can now be used to setup [remote app authentication](remote-authentication/remote-authentication.md) or [remote session](session-state/remote-session.md), as needed.
 
